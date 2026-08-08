@@ -10,33 +10,158 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AppRouteImport } from './routes/app'
+import { Route as AppHooksRouteImport } from './routes/app.hooks'
+import { Route as AppIdeateRouteImport } from './routes/app.ideate'
+import { Route as AppOptimiseChaptersRouteImport } from './routes/app.optimise.chapters'
+import { Route as AppOptimiseDescriptionRouteImport } from './routes/app.optimise.description'
+import { Route as AppOptimiseTagsRouteImport } from './routes/app.optimise.tags'
+import { Route as AppOptimiseTitleRouteImport } from './routes/app.optimise.title'
+import { Route as AppScriptOutlineRouteImport } from './routes/app.script.outline'
+import { Route as AppScriptRewriteRouteImport } from './routes/app.script.rewrite'
+import { Route as AppScriptWriteRouteImport } from './routes/app.script.write'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppRoute = AppRouteImport.update({
+  id: '/app',
+  path: '/app',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AppHooksRoute = AppHooksRouteImport.update({
+  id: '/hooks',
+  path: '/hooks',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppIdeateRoute = AppIdeateRouteImport.update({
+  id: '/ideate',
+  path: '/ideate',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOptimiseChaptersRoute = AppOptimiseChaptersRouteImport.update({
+  id: '/optimise/chapters',
+  path: '/optimise/chapters',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOptimiseDescriptionRoute = AppOptimiseDescriptionRouteImport.update({
+  id: '/optimise/description',
+  path: '/optimise/description',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOptimiseTagsRoute = AppOptimiseTagsRouteImport.update({
+  id: '/optimise/tags',
+  path: '/optimise/tags',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppOptimiseTitleRoute = AppOptimiseTitleRouteImport.update({
+  id: '/optimise/title',
+  path: '/optimise/title',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppScriptOutlineRoute = AppScriptOutlineRouteImport.update({
+  id: '/script/outline',
+  path: '/script/outline',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppScriptRewriteRoute = AppScriptRewriteRouteImport.update({
+  id: '/script/rewrite',
+  path: '/script/rewrite',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppScriptWriteRoute = AppScriptWriteRouteImport.update({
+  id: '/script/write',
+  path: '/script/write',
+  getParentRoute: () => AppRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/hooks': typeof AppHooksRoute
+  '/app/ideate': typeof AppIdeateRoute
+  '/app/optimise/chapters': typeof AppOptimiseChaptersRoute
+  '/app/optimise/description': typeof AppOptimiseDescriptionRoute
+  '/app/optimise/tags': typeof AppOptimiseTagsRoute
+  '/app/optimise/title': typeof AppOptimiseTitleRoute
+  '/app/script/outline': typeof AppScriptOutlineRoute
+  '/app/script/rewrite': typeof AppScriptRewriteRoute
+  '/app/script/write': typeof AppScriptWriteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/hooks': typeof AppHooksRoute
+  '/app/ideate': typeof AppIdeateRoute
+  '/app/optimise/chapters': typeof AppOptimiseChaptersRoute
+  '/app/optimise/description': typeof AppOptimiseDescriptionRoute
+  '/app/optimise/tags': typeof AppOptimiseTagsRoute
+  '/app/optimise/title': typeof AppOptimiseTitleRoute
+  '/app/script/outline': typeof AppScriptOutlineRoute
+  '/app/script/rewrite': typeof AppScriptRewriteRoute
+  '/app/script/write': typeof AppScriptWriteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/app': typeof AppRouteWithChildren
+  '/app/hooks': typeof AppHooksRoute
+  '/app/ideate': typeof AppIdeateRoute
+  '/app/optimise/chapters': typeof AppOptimiseChaptersRoute
+  '/app/optimise/description': typeof AppOptimiseDescriptionRoute
+  '/app/optimise/tags': typeof AppOptimiseTagsRoute
+  '/app/optimise/title': typeof AppOptimiseTitleRoute
+  '/app/script/outline': typeof AppScriptOutlineRoute
+  '/app/script/rewrite': typeof AppScriptRewriteRoute
+  '/app/script/write': typeof AppScriptWriteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/app'
+    | '/app/hooks'
+    | '/app/ideate'
+    | '/app/optimise/chapters'
+    | '/app/optimise/description'
+    | '/app/optimise/tags'
+    | '/app/optimise/title'
+    | '/app/script/outline'
+    | '/app/script/rewrite'
+    | '/app/script/write'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/app'
+    | '/app/hooks'
+    | '/app/ideate'
+    | '/app/optimise/chapters'
+    | '/app/optimise/description'
+    | '/app/optimise/tags'
+    | '/app/optimise/title'
+    | '/app/script/outline'
+    | '/app/script/rewrite'
+    | '/app/script/write'
+  id:
+    | '__root__'
+    | '/'
+    | '/app'
+    | '/app/hooks'
+    | '/app/ideate'
+    | '/app/optimise/chapters'
+    | '/app/optimise/description'
+    | '/app/optimise/tags'
+    | '/app/optimise/title'
+    | '/app/script/outline'
+    | '/app/script/rewrite'
+    | '/app/script/write'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AppRoute: typeof AppRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +173,109 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app': {
+      id: '/app'
+      path: '/app'
+      fullPath: '/app'
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/app/hooks': {
+      id: '/app/hooks'
+      path: '/hooks'
+      fullPath: '/app/hooks'
+      preLoaderRoute: typeof AppHooksRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/ideate': {
+      id: '/app/ideate'
+      path: '/ideate'
+      fullPath: '/app/ideate'
+      preLoaderRoute: typeof AppIdeateRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/optimise/chapters': {
+      id: '/app/optimise/chapters'
+      path: '/optimise/chapters'
+      fullPath: '/app/optimise/chapters'
+      preLoaderRoute: typeof AppOptimiseChaptersRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/optimise/description': {
+      id: '/app/optimise/description'
+      path: '/optimise/description'
+      fullPath: '/app/optimise/description'
+      preLoaderRoute: typeof AppOptimiseDescriptionRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/optimise/tags': {
+      id: '/app/optimise/tags'
+      path: '/optimise/tags'
+      fullPath: '/app/optimise/tags'
+      preLoaderRoute: typeof AppOptimiseTagsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/optimise/title': {
+      id: '/app/optimise/title'
+      path: '/optimise/title'
+      fullPath: '/app/optimise/title'
+      preLoaderRoute: typeof AppOptimiseTitleRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/script/outline': {
+      id: '/app/script/outline'
+      path: '/script/outline'
+      fullPath: '/app/script/outline'
+      preLoaderRoute: typeof AppScriptOutlineRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/script/rewrite': {
+      id: '/app/script/rewrite'
+      path: '/script/rewrite'
+      fullPath: '/app/script/rewrite'
+      preLoaderRoute: typeof AppScriptRewriteRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/script/write': {
+      id: '/app/script/write'
+      path: '/script/write'
+      fullPath: '/app/script/write'
+      preLoaderRoute: typeof AppScriptWriteRouteImport
+      parentRoute: typeof AppRoute
+    }
   }
 }
 
+interface AppRouteChildren {
+  AppHooksRoute: typeof AppHooksRoute
+  AppIdeateRoute: typeof AppIdeateRoute
+  AppOptimiseChaptersRoute: typeof AppOptimiseChaptersRoute
+  AppOptimiseDescriptionRoute: typeof AppOptimiseDescriptionRoute
+  AppOptimiseTagsRoute: typeof AppOptimiseTagsRoute
+  AppOptimiseTitleRoute: typeof AppOptimiseTitleRoute
+  AppScriptOutlineRoute: typeof AppScriptOutlineRoute
+  AppScriptRewriteRoute: typeof AppScriptRewriteRoute
+  AppScriptWriteRoute: typeof AppScriptWriteRoute
+}
+
+const AppRouteChildren: AppRouteChildren = {
+  AppHooksRoute: AppHooksRoute,
+  AppIdeateRoute: AppIdeateRoute,
+  AppOptimiseChaptersRoute: AppOptimiseChaptersRoute,
+  AppOptimiseDescriptionRoute: AppOptimiseDescriptionRoute,
+  AppOptimiseTagsRoute: AppOptimiseTagsRoute,
+  AppOptimiseTitleRoute: AppOptimiseTitleRoute,
+  AppScriptOutlineRoute: AppScriptOutlineRoute,
+  AppScriptRewriteRoute: AppScriptRewriteRoute,
+  AppScriptWriteRoute: AppScriptWriteRoute,
+}
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AppRoute: AppRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
