@@ -64,7 +64,7 @@ export const subtitleService: SubtitleService = {
           text: line,
           startTime: segment.startTime + index * span,
           endTime: segment.startTime + (index + 1) * span,
-          speaker: segment.speaker,
+          ...(segment.speaker ? { speaker: segment.speaker } : {}),
           style: "bold-pop",
         });
       });
