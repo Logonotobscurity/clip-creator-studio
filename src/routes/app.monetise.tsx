@@ -35,9 +35,15 @@ function Earnings() {
   const [niche, setNiche] = useState(Object.keys(NICHE_MULTIPLIER)[0]!);
   const [views, setViews] = useState(250000);
   const [followers, setFollowers] = useState(25000);
-  const [engagement, setEngagement] = useState(4);
+  const [clips, setClips] = useState(12);
 
-  const result = calculateEarnings({ platform, niche, monthlyViews: views, followers, engagementRate: engagement });
+  const result = calculateEarnings({
+    platform,
+    niche,
+    viewsPerMonth: views,
+    clipsPerMonth: clips,
+    followers,
+  });
 
   return (
     <div className="grid gap-10">
@@ -78,8 +84,8 @@ function Earnings() {
           <Input id="followers" type="number" min={0} value={followers} onChange={(e) => setFollowers(Number(e.target.value) || 0)} />
         </div>
         <div className="grid gap-2">
-          <Label htmlFor="engagement">Engagement rate (%)</Label>
-          <Input id="engagement" type="number" min={0} max={100} value={engagement} onChange={(e) => setEngagement(Number(e.target.value) || 0)} />
+          <Label htmlFor="clips">Clips published per month</Label>
+          <Input id="clips" type="number" min={0} value={clips} onChange={(e) => setClips(Number(e.target.value) || 0)} />
         </div>
       </Panel>
 

@@ -45,6 +45,7 @@ function Deals() {
 
   const result = calculateBrandDeal({
     niche,
+    platform: "TikTok",
     followers,
     averageViews: avgViews,
     engagementRate: engagement,
@@ -120,7 +121,7 @@ function Deals() {
       </Panel>
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <StatsCard label="Suggested rate" value={currency(result.rate)} hint="Per campaign" />
+        <StatsCard label="Effective CPM" value={`$${result.cpm.toFixed(2)}`} hint="Blended sponsor CPM" />
         <StatsCard
           label="Negotiation range"
           value={`${currency(result.low)} – ${currency(result.high)}`}
