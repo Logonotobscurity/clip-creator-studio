@@ -90,9 +90,21 @@ function Earnings() {
       </Panel>
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <StatsCard label="Ad revenue" value={currency(result.adRevenue)} hint="Platform payouts" />
-        <StatsCard label="Sponsorships" value={currency(result.sponsorRevenue)} hint="Typical brand spend" />
-        <StatsCard label="Monthly total" value={currency(result.total)} hint={`${currency(result.low)} – ${currency(result.high)} range`} />
+        <StatsCard
+          label="Ad revenue"
+          value={`${currency(result.adRevenueLow)} – ${currency(result.adRevenueHigh)}`}
+          hint="Platform payouts"
+        />
+        <StatsCard
+          label="Brand revenue"
+          value={`${currency(result.brandRevenueLow)} – ${currency(result.brandRevenueHigh)}`}
+          hint="Typical sponsor spend"
+        />
+        <StatsCard
+          label="Monthly total"
+          value={`${currency(result.totalLow)} – ${currency(result.totalHigh)}`}
+          hint={`${currency(result.emv)} earned media value`}
+        />
       </div>
       <p className="text-xs text-muted-foreground">{EARNINGS_DISCLAIMER}</p>
     </div>
