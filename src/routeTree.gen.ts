@@ -12,11 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
 import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 import { Route as AppClipmakerRouteImport } from './routes/app.clipmaker'
 import { Route as AppDealsRouteImport } from './routes/app.deals'
+import { Route as AppHistoryRouteImport } from './routes/app.history'
 import { Route as AppHooksRouteImport } from './routes/app.hooks'
 import { Route as AppIdeateRouteImport } from './routes/app.ideate'
 import { Route as AppMonetiseRouteImport } from './routes/app.monetise'
+import { Route as AppMoreRouteImport } from './routes/app.more'
+import { Route as AppScheduleRouteImport } from './routes/app.schedule'
 import { Route as AppOptimiseChaptersRouteImport } from './routes/app.optimise.chapters'
 import { Route as AppOptimiseDescriptionRouteImport } from './routes/app.optimise.description'
 import { Route as AppOptimiseTagsRouteImport } from './routes/app.optimise.tags'
@@ -40,6 +44,11 @@ const AppIndexRoute = AppIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AppRoute,
 } as any)
+const AppAnalyticsRoute = AppAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppClipmakerRoute = AppClipmakerRouteImport.update({
   id: '/clipmaker',
   path: '/clipmaker',
@@ -48,6 +57,11 @@ const AppClipmakerRoute = AppClipmakerRouteImport.update({
 const AppDealsRoute = AppDealsRouteImport.update({
   id: '/deals',
   path: '/deals',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppHistoryRoute = AppHistoryRouteImport.update({
+  id: '/history',
+  path: '/history',
   getParentRoute: () => AppRoute,
 } as any)
 const AppHooksRoute = AppHooksRouteImport.update({
@@ -63,6 +77,16 @@ const AppIdeateRoute = AppIdeateRouteImport.update({
 const AppMonetiseRoute = AppMonetiseRouteImport.update({
   id: '/monetise',
   path: '/monetise',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMoreRoute = AppMoreRouteImport.update({
+  id: '/more',
+  path: '/more',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppScheduleRoute = AppScheduleRouteImport.update({
+  id: '/schedule',
+  path: '/schedule',
   getParentRoute: () => AppRoute,
 } as any)
 const AppOptimiseChaptersRoute = AppOptimiseChaptersRouteImport.update({
@@ -104,11 +128,15 @@ const AppScriptWriteRoute = AppScriptWriteRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/analytics': typeof AppAnalyticsRoute
   '/app/clipmaker': typeof AppClipmakerRoute
   '/app/deals': typeof AppDealsRoute
+  '/app/history': typeof AppHistoryRoute
   '/app/hooks': typeof AppHooksRoute
   '/app/ideate': typeof AppIdeateRoute
   '/app/monetise': typeof AppMonetiseRoute
+  '/app/more': typeof AppMoreRoute
+  '/app/schedule': typeof AppScheduleRoute
   '/app/': typeof AppIndexRoute
   '/app/optimise/chapters': typeof AppOptimiseChaptersRoute
   '/app/optimise/description': typeof AppOptimiseDescriptionRoute
@@ -120,11 +148,15 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/app/analytics': typeof AppAnalyticsRoute
   '/app/clipmaker': typeof AppClipmakerRoute
   '/app/deals': typeof AppDealsRoute
+  '/app/history': typeof AppHistoryRoute
   '/app/hooks': typeof AppHooksRoute
   '/app/ideate': typeof AppIdeateRoute
   '/app/monetise': typeof AppMonetiseRoute
+  '/app/more': typeof AppMoreRoute
+  '/app/schedule': typeof AppScheduleRoute
   '/app': typeof AppIndexRoute
   '/app/optimise/chapters': typeof AppOptimiseChaptersRoute
   '/app/optimise/description': typeof AppOptimiseDescriptionRoute
@@ -138,11 +170,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/analytics': typeof AppAnalyticsRoute
   '/app/clipmaker': typeof AppClipmakerRoute
   '/app/deals': typeof AppDealsRoute
+  '/app/history': typeof AppHistoryRoute
   '/app/hooks': typeof AppHooksRoute
   '/app/ideate': typeof AppIdeateRoute
   '/app/monetise': typeof AppMonetiseRoute
+  '/app/more': typeof AppMoreRoute
+  '/app/schedule': typeof AppScheduleRoute
   '/app/': typeof AppIndexRoute
   '/app/optimise/chapters': typeof AppOptimiseChaptersRoute
   '/app/optimise/description': typeof AppOptimiseDescriptionRoute
@@ -157,11 +193,15 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/app/analytics'
     | '/app/clipmaker'
     | '/app/deals'
+    | '/app/history'
     | '/app/hooks'
     | '/app/ideate'
     | '/app/monetise'
+    | '/app/more'
+    | '/app/schedule'
     | '/app/'
     | '/app/optimise/chapters'
     | '/app/optimise/description'
@@ -173,11 +213,15 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/app/analytics'
     | '/app/clipmaker'
     | '/app/deals'
+    | '/app/history'
     | '/app/hooks'
     | '/app/ideate'
     | '/app/monetise'
+    | '/app/more'
+    | '/app/schedule'
     | '/app'
     | '/app/optimise/chapters'
     | '/app/optimise/description'
@@ -190,11 +234,15 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app'
+    | '/app/analytics'
     | '/app/clipmaker'
     | '/app/deals'
+    | '/app/history'
     | '/app/hooks'
     | '/app/ideate'
     | '/app/monetise'
+    | '/app/more'
+    | '/app/schedule'
     | '/app/'
     | '/app/optimise/chapters'
     | '/app/optimise/description'
@@ -233,6 +281,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppIndexRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/analytics': {
+      id: '/app/analytics'
+      path: '/analytics'
+      fullPath: '/app/analytics'
+      preLoaderRoute: typeof AppAnalyticsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/clipmaker': {
       id: '/app/clipmaker'
       path: '/clipmaker'
@@ -245,6 +300,13 @@ declare module '@tanstack/react-router' {
       path: '/deals'
       fullPath: '/app/deals'
       preLoaderRoute: typeof AppDealsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/history': {
+      id: '/app/history'
+      path: '/history'
+      fullPath: '/app/history'
+      preLoaderRoute: typeof AppHistoryRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/hooks': {
@@ -266,6 +328,20 @@ declare module '@tanstack/react-router' {
       path: '/monetise'
       fullPath: '/app/monetise'
       preLoaderRoute: typeof AppMonetiseRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/more': {
+      id: '/app/more'
+      path: '/more'
+      fullPath: '/app/more'
+      preLoaderRoute: typeof AppMoreRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/schedule': {
+      id: '/app/schedule'
+      path: '/schedule'
+      fullPath: '/app/schedule'
+      preLoaderRoute: typeof AppScheduleRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/optimise/chapters': {
@@ -321,11 +397,15 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppClipmakerRoute: typeof AppClipmakerRoute
   AppDealsRoute: typeof AppDealsRoute
+  AppHistoryRoute: typeof AppHistoryRoute
   AppHooksRoute: typeof AppHooksRoute
   AppIdeateRoute: typeof AppIdeateRoute
   AppMonetiseRoute: typeof AppMonetiseRoute
+  AppMoreRoute: typeof AppMoreRoute
+  AppScheduleRoute: typeof AppScheduleRoute
   AppIndexRoute: typeof AppIndexRoute
   AppOptimiseChaptersRoute: typeof AppOptimiseChaptersRoute
   AppOptimiseDescriptionRoute: typeof AppOptimiseDescriptionRoute
@@ -337,11 +417,15 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppAnalyticsRoute: AppAnalyticsRoute,
   AppClipmakerRoute: AppClipmakerRoute,
   AppDealsRoute: AppDealsRoute,
+  AppHistoryRoute: AppHistoryRoute,
   AppHooksRoute: AppHooksRoute,
   AppIdeateRoute: AppIdeateRoute,
   AppMonetiseRoute: AppMonetiseRoute,
+  AppMoreRoute: AppMoreRoute,
+  AppScheduleRoute: AppScheduleRoute,
   AppIndexRoute: AppIndexRoute,
   AppOptimiseChaptersRoute: AppOptimiseChaptersRoute,
   AppOptimiseDescriptionRoute: AppOptimiseDescriptionRoute,
