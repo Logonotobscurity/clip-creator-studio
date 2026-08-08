@@ -45,7 +45,7 @@ function Deals() {
 
   const result = calculateBrandDeal({
     niche,
-    platform: "TikTok",
+    platform: "tiktok",
     followers,
     averageViews: avgViews,
     engagementRate: engagement,
