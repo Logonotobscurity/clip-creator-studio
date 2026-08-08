@@ -11,8 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AppRouteImport } from './routes/app'
+import { Route as AppIndexRouteImport } from './routes/app.index'
+import { Route as AppClipmakerRouteImport } from './routes/app.clipmaker'
+import { Route as AppDealsRouteImport } from './routes/app.deals'
 import { Route as AppHooksRouteImport } from './routes/app.hooks'
 import { Route as AppIdeateRouteImport } from './routes/app.ideate'
+import { Route as AppMonetiseRouteImport } from './routes/app.monetise'
 import { Route as AppOptimiseChaptersRouteImport } from './routes/app.optimise.chapters'
 import { Route as AppOptimiseDescriptionRouteImport } from './routes/app.optimise.description'
 import { Route as AppOptimiseTagsRouteImport } from './routes/app.optimise.tags'
@@ -31,6 +35,21 @@ const AppRoute = AppRouteImport.update({
   path: '/app',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppIndexRoute = AppIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppClipmakerRoute = AppClipmakerRouteImport.update({
+  id: '/clipmaker',
+  path: '/clipmaker',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppDealsRoute = AppDealsRouteImport.update({
+  id: '/deals',
+  path: '/deals',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppHooksRoute = AppHooksRouteImport.update({
   id: '/hooks',
   path: '/hooks',
@@ -39,6 +58,11 @@ const AppHooksRoute = AppHooksRouteImport.update({
 const AppIdeateRoute = AppIdeateRouteImport.update({
   id: '/ideate',
   path: '/ideate',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppMonetiseRoute = AppMonetiseRouteImport.update({
+  id: '/monetise',
+  path: '/monetise',
   getParentRoute: () => AppRoute,
 } as any)
 const AppOptimiseChaptersRoute = AppOptimiseChaptersRouteImport.update({
@@ -80,8 +104,12 @@ const AppScriptWriteRoute = AppScriptWriteRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/clipmaker': typeof AppClipmakerRoute
+  '/app/deals': typeof AppDealsRoute
   '/app/hooks': typeof AppHooksRoute
   '/app/ideate': typeof AppIdeateRoute
+  '/app/monetise': typeof AppMonetiseRoute
+  '/app/': typeof AppIndexRoute
   '/app/optimise/chapters': typeof AppOptimiseChaptersRoute
   '/app/optimise/description': typeof AppOptimiseDescriptionRoute
   '/app/optimise/tags': typeof AppOptimiseTagsRoute
@@ -92,9 +120,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/app': typeof AppRouteWithChildren
+  '/app/clipmaker': typeof AppClipmakerRoute
+  '/app/deals': typeof AppDealsRoute
   '/app/hooks': typeof AppHooksRoute
   '/app/ideate': typeof AppIdeateRoute
+  '/app/monetise': typeof AppMonetiseRoute
+  '/app': typeof AppIndexRoute
   '/app/optimise/chapters': typeof AppOptimiseChaptersRoute
   '/app/optimise/description': typeof AppOptimiseDescriptionRoute
   '/app/optimise/tags': typeof AppOptimiseTagsRoute
@@ -107,8 +138,12 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/app': typeof AppRouteWithChildren
+  '/app/clipmaker': typeof AppClipmakerRoute
+  '/app/deals': typeof AppDealsRoute
   '/app/hooks': typeof AppHooksRoute
   '/app/ideate': typeof AppIdeateRoute
+  '/app/monetise': typeof AppMonetiseRoute
+  '/app/': typeof AppIndexRoute
   '/app/optimise/chapters': typeof AppOptimiseChaptersRoute
   '/app/optimise/description': typeof AppOptimiseDescriptionRoute
   '/app/optimise/tags': typeof AppOptimiseTagsRoute
@@ -122,8 +157,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/app'
+    | '/app/clipmaker'
+    | '/app/deals'
     | '/app/hooks'
     | '/app/ideate'
+    | '/app/monetise'
+    | '/app/'
     | '/app/optimise/chapters'
     | '/app/optimise/description'
     | '/app/optimise/tags'
@@ -134,9 +173,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/app'
+    | '/app/clipmaker'
+    | '/app/deals'
     | '/app/hooks'
     | '/app/ideate'
+    | '/app/monetise'
+    | '/app'
     | '/app/optimise/chapters'
     | '/app/optimise/description'
     | '/app/optimise/tags'
@@ -148,8 +190,12 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/app'
+    | '/app/clipmaker'
+    | '/app/deals'
     | '/app/hooks'
     | '/app/ideate'
+    | '/app/monetise'
+    | '/app/'
     | '/app/optimise/chapters'
     | '/app/optimise/description'
     | '/app/optimise/tags'
@@ -180,6 +226,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/app/': {
+      id: '/app/'
+      path: '/'
+      fullPath: '/app/'
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/clipmaker': {
+      id: '/app/clipmaker'
+      path: '/clipmaker'
+      fullPath: '/app/clipmaker'
+      preLoaderRoute: typeof AppClipmakerRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/deals': {
+      id: '/app/deals'
+      path: '/deals'
+      fullPath: '/app/deals'
+      preLoaderRoute: typeof AppDealsRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/hooks': {
       id: '/app/hooks'
       path: '/hooks'
@@ -192,6 +259,13 @@ declare module '@tanstack/react-router' {
       path: '/ideate'
       fullPath: '/app/ideate'
       preLoaderRoute: typeof AppIdeateRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/app/monetise': {
+      id: '/app/monetise'
+      path: '/monetise'
+      fullPath: '/app/monetise'
+      preLoaderRoute: typeof AppMonetiseRouteImport
       parentRoute: typeof AppRoute
     }
     '/app/optimise/chapters': {
@@ -247,8 +321,12 @@ declare module '@tanstack/react-router' {
 }
 
 interface AppRouteChildren {
+  AppClipmakerRoute: typeof AppClipmakerRoute
+  AppDealsRoute: typeof AppDealsRoute
   AppHooksRoute: typeof AppHooksRoute
   AppIdeateRoute: typeof AppIdeateRoute
+  AppMonetiseRoute: typeof AppMonetiseRoute
+  AppIndexRoute: typeof AppIndexRoute
   AppOptimiseChaptersRoute: typeof AppOptimiseChaptersRoute
   AppOptimiseDescriptionRoute: typeof AppOptimiseDescriptionRoute
   AppOptimiseTagsRoute: typeof AppOptimiseTagsRoute
@@ -259,8 +337,12 @@ interface AppRouteChildren {
 }
 
 const AppRouteChildren: AppRouteChildren = {
+  AppClipmakerRoute: AppClipmakerRoute,
+  AppDealsRoute: AppDealsRoute,
   AppHooksRoute: AppHooksRoute,
   AppIdeateRoute: AppIdeateRoute,
+  AppMonetiseRoute: AppMonetiseRoute,
+  AppIndexRoute: AppIndexRoute,
   AppOptimiseChaptersRoute: AppOptimiseChaptersRoute,
   AppOptimiseDescriptionRoute: AppOptimiseDescriptionRoute,
   AppOptimiseTagsRoute: AppOptimiseTagsRoute,
