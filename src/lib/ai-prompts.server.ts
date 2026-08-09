@@ -167,7 +167,7 @@ export interface BuiltPrompt {
   prompt: string;
   version: string;
   maxOutputTokens: number;
-  model?: string;
+  model?: string | undefined;
 }
 
 export function buildPrompt(
