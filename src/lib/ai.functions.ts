@@ -3,7 +3,7 @@ import { aiRequestSchema, type AiResult } from "@/clipin/lib/ai-schemas";
 
 /**
  * AI tool RPC. Runs on the server against the Lovable AI Gateway.
- * Prompts, model choice, and credentials never reach the browser.
+ * Prompts, model choice, crawl context, and credentials never reach the browser.
  */
 export const runAiTool = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => aiRequestSchema.parse(input))
@@ -13,20 +13,34 @@ export const runAiTool = createServerFn({ method: "POST" })
       throw new Error("AI is not configured for this workspace yet.");
     }
 
-    const { streamText, Output } = await import("ai");
+    const { streamText, Output, NoObjectGeneratedError } = await import("ai");
     const { createLovableAiGatewayProvider, DEFAULT_CHAT_MODEL } = await import(
       "./ai-gateway.server"
     );
-    const { buildPrompt, aiResultSchema } = await import("./ai-prompts.server");
+    const { aiTaskRegistry, buildPrompt, aiResultSchema } = await import("./ai-prompts.server");
+    const { crawlForContext, formatCrawlContext } = await import("./research.server");
+
+    const task = aiTaskRegistry[data.tool];
+
+    // Research step: enrich the prompt with page context when the task allows it.
+    let externalContext: string | undefined;
+    if (task.contextUrlField) {
+      const url = data.fields[task.contextUrlField]?.trim();
+      if (url) {
+        const crawled = await crawlForContext(url);
+        if (crawled) externalContext = formatCrawlContext(crawled);
+      }
+    }
 
     const gateway = createLovableAiGatewayProvider(apiKey);
-    const { system, prompt } = buildPrompt(data.tool, data.fields);
+    const built = buildPrompt(data.tool, data.fields, externalContext);
 
     try {
       const result = streamText({
-        model: gateway(DEFAULT_CHAT_MODEL),
-        system,
-        prompt,
+        model: gateway(built.model ?? DEFAULT_CHAT_MODEL),
+        system: built.system,
+        prompt: built.prompt,
+        maxOutputTokens: built.maxOutputTokens,
         output: Output.object({ schema: aiResultSchema }),
       });
       return await result.output;
@@ -38,7 +52,11 @@ export const runAiTool = createServerFn({ method: "POST" })
       if (message.includes("402")) {
         throw new Error("AI credits are exhausted for this workspace. Add credits to continue.");
       }
-      console.error("[clipin] ai tool failed", data.tool, message);
+      if (NoObjectGeneratedError.isInstance(error)) {
+        console.error("[clipin] ai schema validation failed", data.tool, built.version);
+        throw new Error("The model returned an unusable answer. Try again.");
+      }
+      console.error("[clipin] ai tool failed", data.tool, built.version, message);
       throw new Error("We couldn't generate that. Try again in a moment.");
     }
   });
