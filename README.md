@@ -1,10 +1,16 @@
 # CLIPIN — AI Video Repurposing & Creator Platform
 
+[![TypeScript](https://img.shields.io/badge/TypeScript-TanStack%20Start-blue)]()
+[![AI](https://img.shields.io/badge/AI-SDK-green)]()
+[![Status](https://img.shields.io/badge/Status-architecture%20%2B%20spec-orange)]()
+
 **Turn long-form video into short clips, scripts, titles, and scheduled content with AI-assisted workflows.**
 
 This repository contains the product architecture, design system, and application structure for CLIPIN — a creator platform focused on video analysis, clip generation, editing, optimization, and publishing workflows.
 
-> **Status note:** The previous README and much of the repository content is a detailed implementation specification and master prompt. Full end-to-end video processing (upload → clip → export) should be verified before presenting this as a completed production system.
+> **Status note:** The previous README was a detailed implementation specification and master prompt. Full end-to-end video processing should be verified before presenting this as a completed production system.
+
+<!-- Demo GIF: short clip of clipmaker flow once pipeline is verified -->
 
 ---
 
@@ -26,16 +32,16 @@ The repository documents and partially implements:
 
 ## Architecture
 
-Central workflow:
-
+```mermaid
+flowchart LR
+    A[Video URL] --> B[Analyse]
+    B --> C[Identify Moments]
+    C --> D[Generate Clips]
+    D --> E[Edit / Style]
+    E --> F[Export]
+    F --> G[Schedule]
+    G --> H[Analytics]
 ```
-VIDEO → ANALYSE → IDENTIFY MOMENTS → GENERATE CLIPS → EDIT → STYLE → EXPORT → SCHEDULE → ANALYSE
-```
-
-Key abstractions (intended):
-- `videoService`, `transcriptionService`, `clipService`, `faceTrackingService`, `subtitleService`, `exportService`
-- Reusable `<AIToolPage />` pattern
-- Local persistence initially, with clear path to PostgreSQL / object storage
 
 ## What a reviewer can run
 
@@ -46,24 +52,25 @@ npm run dev
 
 Inspect routes under `/app/*` for the creator workspace. Many AI and video steps currently rely on service interfaces and mocks rather than full production backends.
 
-## Honest limitations (from portfolio audit)
+## Honest limitations
 
 - The previous README was largely a detailed implementation specification and autonomous coding prompt.
-- Full video-processing pipeline (real upload, transcription, clipping, export) has not been verified as end-to-end working in the current public state.
-- Present as a product direction and architecture for creative AI workflows, not as a finished production clipper, until the core pipeline is demonstrable.
+- Full video-processing pipeline has not been verified as end-to-end working.
+- Present as a product direction and architecture for creative AI workflows until the core pipeline is demonstrable.
 
 ## Portfolio value
 
-Relevant for creative AI, multimodal product, and full-stack AI implementation roles (e.g., ElevenLabs creative agents, product-oriented positions).  
-Best used as supporting evidence alongside stronger agent and integration projects (AgentBridge Africa, PAL, Re:Mind Me).
+Relevant for creative AI, multimodal product, and full-stack AI implementation roles.  
+Best used as supporting evidence alongside AgentBridge Africa, PAL, and Re:Mind Me.
 
 ## Recommended next steps
 
-1. Move the full master prompt into a `docs/DEVELOPMENT_PROMPT.md` or similar so the root README stays reviewer-friendly.
+1. Move the full master prompt into `docs/DEVELOPMENT_PROMPT.md`.
 2. Verify and document which parts of the clip pipeline actually run end-to-end.
-3. Add a short demo video or reproducible walkthrough of upload → clip results → edit → export.
+3. Add a short demo video or reproducible walkthrough.
 
-## Further reading
+## Visual assets to add
 
-- Design tokens and component structure under `src/`
-- Service abstractions and API contracts in the codebase
+1. Demo GIF of the clipmaker results and editor once the pipeline is verified.
+2. Screenshots of the design system / creator workspace.
+3. Social preview image (1280×640).
