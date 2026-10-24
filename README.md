@@ -6,17 +6,25 @@
 
 **Turn long-form video into short clips, scripts, titles, and scheduled content with AI-assisted workflows.**
 
-This repository contains the product architecture, design system, and application structure for CLIPIN — a creator platform focused on video analysis, clip generation, editing, optimization, and publishing workflows.
+<p align="center">
+  <img src="docs/assets/banner.png" alt="CLIPIN banner" width="1200" />
+</p>
 
-> **Status note:** The previous README was a detailed implementation specification and master prompt. Full end-to-end video processing should be verified before presenting this as a completed production system.
+![CLIPIN creator workspace](docs/assets/demo.gif)
 
-<!-- Demo GIF: short clip of clipmaker flow once pipeline is verified -->
+<p align="center">
+  <img src="docs/assets/screenshot-workspace.png" alt="CLIPIN creator workspace and tool cards" width="800" />
+</p>
+
+This repository contains the product architecture, design system, and application structure for CLIPIN — a creator platform focused on video analysis, clip generation, editing, optimization, and content planning.
+
+> **Status note:** The previous README was a detailed implementation specification and master prompt. Full end-to-end video processing should be verified before presenting this as a completed production product.
 
 ---
 
 ## What problem does this solve?
 
-Creators need to turn long videos into platform-ready short clips, generate supporting content (hooks, scripts, titles, descriptions, tags), and manage scheduling and history. CLIPIN aims to provide an integrated workspace for these steps rather than isolated tools.
+Creators need to turn long videos into platform-ready short clips, generate supporting content (hooks, scripts, titles, descriptions, tags), and manage scheduling and history. CLIPIN aims to provide a structured workflow for repurposing video into publish-ready short-form content.
 
 ## What is implemented / specified
 
